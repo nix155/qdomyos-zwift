@@ -3,7 +3,7 @@ name: Update Fork
 on:
   schedule:
     - cron: '0 * * * *' # Запуск каждый час
-  workflow_dispatch: # Запуск вручную
+  workflow_dispatch: # Ручной запуск
 
 jobs:
   update-fork:
@@ -13,11 +13,17 @@ jobs:
       - name: Checkout Fork
         uses: actions/checkout@v3
         with:
-          ref: main
+          ref: master # Заменено на master
+          fetch-depth: 0 # Клонировать всю историю
 
       - name: Set Upstream
         run: |
           git remote add upstream https://github.com/cagnulein/qdomyos-zwift.git
           git fetch upstream
-          git merge upstream/main --no-edit
-          git push origin main
+          git merge upstream/master --no-edit # Заменено на master
+          git push origin master # Заменено на master
+
+      - name: Debug Git Remotes
+        run: |
+          git remote -v
+         
