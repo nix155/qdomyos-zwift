@@ -128,6 +128,8 @@ class ftmsbike : public bike {
     bool SCH_190U = false;
     bool D2RIDE = false;
     bool WATTBIKE = false;
+    bool VFSPINBIKE = false;
+    bool SS2K = false;
 
     uint8_t battery_level = 0;
 

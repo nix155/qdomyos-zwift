@@ -429,7 +429,7 @@ void ftmsbike::characteristicChanged(const QLowEnergyCharacteristic &characteris
     }
 
     // Wattbike Atom First Generation - Display Gears
-    if(characteristic.uuid() == QBluetoothUuid(QStringLiteral("b4cc1224-bc02-4cae-adb9-1217ad2860d1")) &&
+    if(WATTBIKE && characteristic.uuid() == QBluetoothUuid(QStringLiteral("b4cc1224-bc02-4cae-adb9-1217ad2860d1")) &&
         newValue.length() > 3 && newValue.at(1) == 0x03 && (uint8_t)newValue.at(2) == 0xb6) {
         uint8_t gear = newValue.at(3);
         qDebug() << "watt bike gears" << gear;
@@ -526,12 +526,15 @@ void ftmsbike::characteristicChanged(const QLowEnergyCharacteristic &characteris
         emit debug(QStringLiteral("Current Distance: ") + QString::number(Distance.value()));
 
         if (Flags.resistanceLvl) {
-            Resistance = ((double)(((uint16_t)((uint8_t)newValue.at(index + 1)) << 8) |
-                                   (uint16_t)((uint8_t)newValue.at(index))));
-            emit resistanceRead(Resistance.value());
-            index += 2;
-            emit debug(QStringLiteral("Current Resistance: ") + QString::number(Resistance.value()));
-            resistance_received = true;
+            double d = ((double)(((uint16_t)((uint8_t)newValue.at(index + 1)) << 8) |
+                                   (uint16_t)((uint8_t)newValue.at(index))));            
+            index += 2;            
+            if(Resistance.value() > 0) {
+                Resistance = d;
+                emit debug(QStringLiteral("Current Resistance: ") + QString::number(Resistance.value()));
+                emit resistanceRead(Resistance.value());
+                resistance_received = true;
+            }
         }
             double ac = 0.01243107769;
             double bc = 1.145964912;
@@ -1157,7 +1160,7 @@ void ftmsbike::serviceScanDone(void) {
             gattCommunicationChannelService.constLast()->discoverDetails();
 
             // watt bikes has the 6 as default gear value
-            if(s == QBluetoothUuid(QStringLiteral("b4cc1223-bc02-4cae-adb9-1217ad2860d1"))) {
+            if(s == QBluetoothUuid(QStringLiteral("b4cc1223-bc02-4cae-adb9-1217ad2860d1")) && SS2K == false) {
                 WATTBIKE = true;
                 qDebug() << QStringLiteral("restoring gear 6 to watt bikes");
                 setGears(6);
@@ -1213,6 +1216,12 @@ void ftmsbike::deviceDiscovered(const QBluetoothDeviceInfo &device) {
         } else if(bluetoothDevice.name().toUpper().startsWith("D2RIDE")) {
             qDebug() << QStringLiteral("D2RIDE found");
             D2RIDE = true;
+        } else if(bluetoothDevice.name().toUpper().startsWith("VFSPINBIKE")) {
+            qDebug() << QStringLiteral("VFSPINBIKE found");
+            VFSPINBIKE = true;
+        } else if(bluetoothDevice.name().toUpper().startsWith("SMARTSPIN2K")) {
+            qDebug() << QStringLiteral("SS2K found");
+            SS2K = true;
         }
         
         if(settings.value(QZSettings::force_resistance_instead_inclination, QZSettings::default_force_resistance_instead_inclination).toBool()) {

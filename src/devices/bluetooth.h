@@ -68,6 +68,7 @@
 #include "devices/iconceptelliptical/iconceptelliptical.h"
 #include "devices/inspirebike/inspirebike.h"
 #include "devices/keepbike/keepbike.h"
+#include "devices/kineticinroadbike/kineticinroadbike.h"
 #include "devices/kingsmithr1protreadmill/kingsmithr1protreadmill.h"
 #include "devices/kingsmithr2treadmill/kingsmithr2treadmill.h"
 #include "devices/lifefitnesstreadmill/lifefitnesstreadmill.h"
@@ -87,6 +88,7 @@
 #include "devices/pafersbike/pafersbike.h"
 #include "devices/paferstreadmill/paferstreadmill.h"
 #include "devices/pelotonbike/pelotonbike.h"
+#include "devices/pitpatbike/pitpatbike.h"
 #include "devices/proformbike/proformbike.h"
 #include "devices/proformelliptical/proformelliptical.h"
 #include "devices/proformellipticaltrainer/proformellipticaltrainer.h"
@@ -111,7 +113,7 @@
 
 #include "devices/spirittreadmill/spirittreadmill.h"
 #include "devices/sportsplusbike/sportsplusbike.h"
-#include "devices/sportspluselliptical/sportspluselliptical.h"
+#include "devices/sportsplusrower/sportsplusrower.h"
 #include "devices/sportstechbike/sportstechbike.h"
 #include "devices/sportstechelliptical/sportstechelliptical.h"
 #include "devices/sramAXSController/sramAXSController.h"
@@ -131,6 +133,7 @@
 #include "devices/truetreadmill/truetreadmill.h"
 #include "devices/trxappgateusbbike/trxappgateusbbike.h"
 #include "devices/trxappgateusbelliptical/trxappgateusbelliptical.h"
+#include "devices/trxappgateusbrower/trxappgateusbrower.h"
 #include "devices/trxappgateusbtreadmill/trxappgateusbtreadmill.h"
 #include "devices/ultrasportbike/ultrasportbike.h"
 #include "devices/wahookickrheadwind/wahookickrheadwind.h"
@@ -197,6 +200,7 @@ class bluetooth : public QObject, public SignalHandler {
     nautiluselliptical *nautilusElliptical = nullptr;
     nautilustreadmill *nautilusTreadmill = nullptr;
     trxappgateusbbike *trxappgateusbBike = nullptr;
+    trxappgateusbrower *trxappgateusbRower = nullptr;
     trxappgateusbelliptical *trxappgateusbElliptical = nullptr;
     echelonconnectsport *echelonConnectSport = nullptr;
     yesoulbike *yesoulBike = nullptr;
@@ -228,7 +232,7 @@ class bluetooth : public QObject, public SignalHandler {
     sportstechbike *sportsTechBike = nullptr;
     sportstechelliptical *sportsTechElliptical = nullptr;
     sportsplusbike *sportsPlusBike = nullptr;
-    sportspluselliptical *sportsPlusElliptical = nullptr;
+    sportsplusrower *sportsPlusRower = nullptr;
     inspirebike *inspireBike = nullptr;
     snodebike *snodeBike = nullptr;
     eslinkertreadmill *eslinkerTreadmill = nullptr;
@@ -257,6 +261,7 @@ class bluetooth : public QObject, public SignalHandler {
     pafersbike *pafersBike = nullptr;
     paferstreadmill *pafersTreadmill = nullptr;
     tacxneo2 *tacxneo2Bike = nullptr;
+    pitpatbike *pitpatBike = nullptr;
     renphobike *renphoBike = nullptr;
     shuaa5treadmill *shuaA5Treadmill = nullptr;
     heartratebelt *heartRateBelt = nullptr;
@@ -269,6 +274,7 @@ class bluetooth : public QObject, public SignalHandler {
     wahookickrsnapbike *wahooKickrSnapBike = nullptr;
     ypooelliptical *ypooElliptical = nullptr;
     ziprotreadmill *ziproTreadmill = nullptr;
+    kineticinroadbike *kineticInroadBike = nullptr;
     strydrunpowersensor *powerTreadmill = nullptr;
     eliterizer *eliteRizer = nullptr;
     elitesterzosmart *eliteSterzoSmart = nullptr;
@@ -355,6 +361,10 @@ class bluetooth : public QObject, public SignalHandler {
     void speedChanged(double);
     void inclinationChanged(double, double);
     void connectedAndDiscovered();
+    void gearDown();
+    void gearUp();
+    void gearFailedDown();
+    void gearFailedUp();
 
   signals:
 };
