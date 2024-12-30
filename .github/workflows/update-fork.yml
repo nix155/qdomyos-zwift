@@ -1,0 +1,23 @@
+name: Update Fork
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Ежедневно в 00:00 (можете настроить интервал)
+  workflow_dispatch: # Запуск вручную
+
+jobs:
+  update-fork:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Fork
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Set Upstream
+        run: |
+          git remote add upstream https://github.com/https://github.com/cagnulein/qdomyos-zwift.git
+          git fetch upstream
+          git merge upstream/main
+          git push origin main
