@@ -2,7 +2,7 @@ name: Update Fork
 
 on:
   schedule:
-    - cron: '0 0 * * *' # Ежедневно в 00:00 (можете настроить интервал)
+    - cron: '0 * * * *' # Запуск каждый час
   workflow_dispatch: # Запуск вручную
 
 jobs:
@@ -17,7 +17,7 @@ jobs:
 
       - name: Set Upstream
         run: |
-          git remote add upstream https://github.com/https://github.com/cagnulein/qdomyos-zwift.git
+          git remote add upstream https://github.com/cagnulein/qdomyos-zwift.git
           git fetch upstream
-          git merge upstream/main
+          git merge upstream/main --no-edit
           git push origin main
