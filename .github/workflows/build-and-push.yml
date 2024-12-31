@@ -33,3 +33,4 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_NAMESPACE }}/qdomyos-zwift-gui-vnc:latest -f docker/linux_gui_vnc/Dockerfile .
           docker push ${{ secrets.DOCKER_NAMESPACE }}/qdomyos-zwift-gui-vnc:latest
+          
