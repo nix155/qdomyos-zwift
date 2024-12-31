@@ -26,6 +26,7 @@ jobs:
       # Шаг 3: Сборка и пуш Docker-образа для WebGL
       - name: Build and Push WebGL Image
         run: |
+          echo ${{ secrets.DOCKER_USERNAME }}
           docker build -t ${{ secrets.DOCKER_USERNAME }}/qdomyos-zwift-webgl:latest -f docker/linux_webgl/Dockerfile .
           docker push ${{ secrets.DOCKER_USERNAME }}/qdomyos-zwift-webgl:latest
 
