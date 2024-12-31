@@ -3,12 +3,11 @@ name: Build and Push Docker Images
 on:
   push:
     branches:
-      - master # Запуск при обновлениях в ветке master
-  workflow_dispatch: # Ручной запуск
+      - master
+  workflow_dispatch:
 
 jobs:
   build-and-push:
-    name: Build and Push Docker Images
     runs-on: ubuntu-latest
 
     steps:
@@ -23,15 +22,14 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Шаг 3: Сборка и пуш Docker-образа для WebGL
+      # Шаг 3: Сборка и пуш WebGL-образа
       - name: Build and Push WebGL Image
         run: |
-          echo ${{ secrets.DOCKER_USERNAME }}
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/qdomyos-zwift-webgl:latest -f docker/linux_webgl/Dockerfile .
-          docker push ${{ secrets.DOCKER_USERNAME }}/qdomyos-zwift-webgl:latest
+          docker build -t ${{ secrets.DOCKER_NAMESPACE }}/qdomyos-zwift-webgl:latest -f docker/linux_webgl/Dockerfile .
+          docker push ${{ secrets.DOCKER_NAMESPACE }}/qdomyos-zwift-webgl:latest
 
-      # Шаг 4: Сборка и пуш Docker-образа для GUI VNC
+      # Шаг 4: Сборка и пуш GUI VNC-образа
       - name: Build and Push GUI VNC Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/qdomyos-zwift-gui-vnc:latest -f docker/linux_gui_vnc/Dockerfile .
-          docker push ${{ secrets.DOCKER_USERNAME }}/qdomyos-zwift-gui-vnc:latest
+          docker build -t ${{ secrets.DOCKER_NAMESPACE }}/qdomyos-zwift-gui-vnc:latest -f docker/linux_gui_vnc/Dockerfile .
+          docker push ${{ secrets.DOCKER_NAMESPACE }}/qdomyos-zwift-gui-vnc:latest
