@@ -1846,7 +1846,7 @@ void bluetooth::deviceDiscovered(const QBluetoothDeviceInfo &device) {
                         (b.name().toUpper().startsWith("JUSTO")) ||
                         (b.name().toUpper().startsWith("MYCYCLE ")) ||
                         (b.name().toUpper().startsWith("T2 ")) ||                        
-                        (b.name().toUpper().startsWith("S18")) ||
+                        (b.name().compare(QStringLiteral("S18"), Qt::CaseInsensitive) == 0) ||
                         (b.name().toUpper().startsWith("RC-MAX-")) ||
                         (b.name().toUpper().startsWith("TPS-SPBIKE-2.0")) ||
                         (b.name().toUpper().startsWith("NEO BIKE SMART")) ||
