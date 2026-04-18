@@ -34,7 +34,7 @@ protected:
      * @brief Disables runtime features that require real Bluetooth advertising or extra network services.
      * Device detection tests only need constructor-side detection logic, not virtual peripherals.
      */
-    void applyCiSafeRuntimeSettings() const;
+    void applyCiSafeRuntimeSettings();
 
     /**
      * @brief Call bt.deviceDiscovered on the deviceInfo to try to detect and create the bluetoothdevice object for it.

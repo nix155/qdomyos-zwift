@@ -8,7 +8,7 @@
 const QString testUUID = QStringLiteral("b8f79bac-32e5-11ed-a261-0242ac120002");
 QBluetoothUuid uuid{testUUID};
 
-void BluetoothDeviceTestSuite::applyCiSafeRuntimeSettings() const {
+void BluetoothDeviceTestSuite::applyCiSafeRuntimeSettings() {
     this->testSettings.qsettings.setValue(QZSettings::virtual_device_enabled, false);
     this->testSettings.qsettings.setValue(QZSettings::virtual_device_bluetooth, false);
     this->testSettings.qsettings.setValue(QZSettings::dircon_yes, false);
