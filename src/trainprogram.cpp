@@ -1923,6 +1923,8 @@ QTime trainprogram::currentRowRemainingTime() {
     if (currentStep < rows.length() && rows.at(currentStep).distance > 0 && bluetoothManager &&
         bluetoothManager->device()) {
         double speed = bluetoothManager->device()->currentSpeed().value();
+        if (speed <= 0)
+            return QTime(0, 0, 0);
         double distance = rows.at(currentStep).distance;
         distance -= currentStepDistance;
         int seconds = (distance / speed) * 3600.0;
