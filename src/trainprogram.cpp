@@ -496,11 +496,8 @@ double trainprogram::avgAzimuthNext300Meters() {
         while (1) {
             if (c < rows.length()) {
                 if (km > 0.3) {
-                    double averageDirection = atan(sinTotal / cosTotal) * (180 / M_PI);
-
-                    if (cosTotal < 0) {
-                        averageDirection += 180;
-                    } else if (sinTotal < 0) {
+                    double averageDirection = atan2(sinTotal, cosTotal) * (180 / M_PI);
+                    if (averageDirection < 0) {
                         averageDirection += 360;
                     }
                     return averageDirection;
@@ -514,11 +511,8 @@ double trainprogram::avgAzimuthNext300Meters() {
                 km += rows.at(c).distance;
 
             } else {
-                double averageDirection = atan(sinTotal / cosTotal) * (180 / M_PI);
-
-                if (cosTotal < 0) {
-                    averageDirection += 180;
-                } else if (sinTotal < 0) {
+                double averageDirection = atan2(sinTotal, cosTotal) * (180 / M_PI);
+                if (averageDirection < 0) {
                     averageDirection += 360;
                 }
                 return averageDirection;
