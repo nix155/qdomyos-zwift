@@ -1723,6 +1723,8 @@ QList<trainrow> trainprogram::loadXML(const QString &filename, BLUETOOTH_TYPE de
                 int durationStep;
                 double speedStep;
                 int spareSeconds;
+                if(speedDelta == 0)
+                    speedDelta = 1;
                 if(speedDelta <= durationS) {
                     durationStep = durationS / speedDelta;
                     speedStep = 0.1;
