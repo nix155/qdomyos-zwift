@@ -1312,12 +1312,13 @@ import Qt.labs.platform 1.1
       
             property double power_sensor_speed_inclination_coeff_a: 0.0
             property double power_sensor_speed_inclination_coeff_b: 0.0
-            property bool proform_carbon_tlx_v84_314_treadmill: false
+            property bool proform_carbon_tlx_v84_314_treadmill: false            
             property bool cscbike_custom_resistance_power_table: false
             property real cscbike_custom_resistance_level_1: 1
             property real cscbike_custom_watt_1: 100
             property real cscbike_custom_resistance_level_2: 15
             property real cscbike_custom_watt_2: 300
+            property bool applewatch_as_treadmill_speed: false
         }
 
 
@@ -14623,6 +14624,34 @@ import Qt.labs.platform 1.1
 
                     Label {
                         text: qsTr("Same as Fake Device but instead of simulating a bike it simulates a treadmill.")
+                        font.bold: true
+                        font.italic: true
+                        font.pixelSize: Qt.application.font.pixelSize - 2
+                        textFormat: Text.PlainText
+                        wrapMode: Text.WordWrap
+                        verticalAlignment: Text.AlignVCenter
+                        Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                        Layout.fillWidth: true
+                        color: Material.color(Material.Lime)
+                    }
+
+                    IndicatorOnlySwitch {
+                        id: appleWatchAsTreadmillSpeedDelegate
+                        text: qsTr("Use Apple Watch Cadence for Fake Treadmill Speed")
+                        spacing: 0
+                        bottomPadding: 0
+                        topPadding: 0
+                        rightPadding: 0
+                        leftPadding: 0
+                        clip: false
+                        checked: settings.applewatch_as_treadmill_speed
+                        Layout.alignment: Qt.AlignLeft | Qt.AlignTop
+                        Layout.fillWidth: true
+                        onClicked: { settings.applewatch_as_treadmill_speed = checked; window.settings_restart_to_apply = true; }
+                    }
+
+                    Label {
+                        text: qsTr("iOS only. For Fake Treadmill mode: when no physical treadmill is connected, derives Speed from Apple Watch step cadence using the Wheel Ratio under Accessories > Cadence Sensor Options. The cycling default is far too high for running - try 0.04-0.15 depending on pace, from walking to running, and tune to taste. Useful with apps like Kinomap or Zwift. Default is off.")
                         font.bold: true
                         font.italic: true
                         font.pixelSize: Qt.application.font.pixelSize - 2
